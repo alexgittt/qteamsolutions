@@ -17,30 +17,23 @@ def step_impl(context, link_name):
 def step_impl(context):
     context.base_page.verify_that_element_is_displayed(context.login_page.login_screen)
 	
-# @when('UI: I create a new account with "{user_account}"')
-# def step_impl(context, user_account):
-# 	account_details = accounts.get(user_account)
-# 	if account_details is None:
-# 		print(f"Available accounts: {list(accounts.keys())}")  # Debug print
-# 		raise ValueError(f"No account details found for: {user_account}")
-	
-# 	context.login_page.first_name.send_keys(account_details['first_name'])
-# 	context.login_page.last_name.set(account_details['last_name'])
-# 	context.login_page.email.set(account_details['email'])
-# 	context.login_page.password.set(account_details['password'])
-# 	context.login_page.checkbox_terms.click()
-# 	context.login_page.sign_up.click()
-# 	time.sleep(5)
-
-	
 @when('UI: I login with user "{user}"')
 def step_impl(context, user):
 	user_details = users.get(user)
 	context.login_page.email.send_keys(user_details['username'])
 	context.login_page.password.send_keys(user_details['password'])
 	context.login_page.signin_btn.click()
-	time.sleep(15)
+	
+@when('UI: I log out')
+def step_impl(context):
+	context.login_page.account_dropdown.click()
+	context.login_page.sign_out_btn.click()
+	context.login_page.sign_in_btn.click()
 	
 @then('UI: I am logged in')
 def step_impl(context):
 	context.base_page.verify_that_element_is_displayed(context.login_page.my_dashboard)
+	
+@then('UI: I am logged out')
+def step_impl(context):
+	context.base_page.verify_that_element_is_displayed(context.login_page.sign_in_btn)
