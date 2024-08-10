@@ -23,10 +23,14 @@ jobs:
 
     - name: Run Behave tests
       run: |
-        behave --junit --junit-directory=reports ./features
+        behave
 
-    - name: Test Summary
-      uses: dorny/test-summary@v1
-      with:
-        check_name: 'Test Report'
-        report_paths: '**/reports/*.xml'
+    # - name: Run Behave tests
+    #   run: |
+    #     behave --junit --junit-directory=reports ./features
+
+    # - name: Test Summary
+    #   uses: dorny/test-summary@v1
+    #   with:
+    #     check_name: 'Test Report'
+    #     report_paths: '**/reports/*.xml'
