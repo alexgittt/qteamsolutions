@@ -1,4 +1,3 @@
-
 name: CI
 
 on:
@@ -22,34 +21,12 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    # - name: Run Behave tests
-    #   run: |
-    #     behave
-
     - name: Run Behave tests
       run: |
-        behave --format json --outfile=reports/cucumber.json ./features
-
-    - name: Convert JSON to HTML
-      run: |
-        npm install -g cucumber-html-reporter
-        cucumber-html-reporter --input reports/cucumber.json --output reports/cucumber-report.html
-
-    - name: Upload Cucumber Report
-      uses: actions/upload-artifact@v2
-      with:
-        name: cucumber-report
-        path: reports/cucumber-report.html
+        behave --junit --junit-directory=reports ./features
 
     - name: Test Summary
       uses: dorny/test-summary@v1
       with:
         check_name: 'Test Report'
         report_paths: '**/reports/*.xml'
-
-
-
-
-
-
-
