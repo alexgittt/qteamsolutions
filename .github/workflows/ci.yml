@@ -22,6 +22,10 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
+    - name: Run Behave tests
+      run: |
+        behave
+
     # - name: Run Behave with Allure
     #   run: |
     #     behave -f allure_behave.formatter:AllureFormatter -o allure-results ./features
