@@ -13,8 +13,8 @@ Feature: THE-CAT-API-SEARCH
         Then API: Check the response data is correct
 
     @api
-	Scenario Outline: Search for cat images with "<invalid_limit>"
-	    When API: Call API for search for cat images with "<invalid_limit>"
+	Scenario Outline: Search for cat images with invalid limit items "<invalid_limit>"
+	    When API: Call API for search for cat images with limit items "<invalid_limit>"
         Then API: The status code is "400"
 
         Examples:
