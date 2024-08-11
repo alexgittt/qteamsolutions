@@ -27,7 +27,7 @@ jobs:
 
     - name: Run Behave UI tests
       run: |
-        behave --tags=UI
+        behave --tags=ui
 
     # - name: Run Behave tests
     #   run: |
