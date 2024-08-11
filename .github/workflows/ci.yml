@@ -26,9 +26,10 @@ jobs:
         behave --tags=ui
 
     - name: Run Behave API tests
+      continue-on-error: true
       run: |
         behave --tags=api
-        continue-on-error: true
+
 
 
     # - name: Run Behave tests
