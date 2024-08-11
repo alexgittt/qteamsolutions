@@ -21,9 +21,13 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Run Behave tests
+    - name: Run Behave API tests
       run: |
-        behave
+        behave --tags=api
+
+    - name: Run Behave UI tests
+      run: |
+        behave --tags=UI
 
     # - name: Run Behave tests
     #   run: |

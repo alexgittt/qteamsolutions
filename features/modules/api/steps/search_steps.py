@@ -60,7 +60,7 @@ def step_impl(context):
 
 	print(f'REPONSE BODY = {context.response_body}')
 
-@when('API: Call API for search for cat images with "{invalid_limit}"')
+@when('API: Call API for search for cat images with limit items "{invalid_limit}"')
 def step_impl(context, invalid_limit):
 	
 	endpoint    = 'v1/images/search'
