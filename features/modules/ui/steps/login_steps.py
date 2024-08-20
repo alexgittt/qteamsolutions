@@ -16,6 +16,10 @@ def step_impl(context, link_name):
 @then('UI: I check that Login Automation page is opened')
 def step_impl(context):
     context.base_page.verify_that_element_is_displayed(context.login_page.login_screen)
+
+@then('UI: Error message is diplayed')
+def step_impl(context):
+    context.base_page.verify_that_element_is_displayed(context.login_page.login_error)
 	
 @when('UI: I login with user "{user}"')
 def step_impl(context, user):
