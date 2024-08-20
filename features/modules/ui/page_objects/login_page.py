@@ -21,5 +21,7 @@ class LoginPage(BasePage):
     self.sign_in_btn      = self.browser.element(href="/users/sign_in")
     self.sign_out_btn     = self.browser.element(href="/users/sign_out")
 
+    self.login_error      = self.browser.div(id="notifications").element(class_name="message-text", text="Invalid email or password.")
+
 
     super().__init__(self.browser, self.context)
