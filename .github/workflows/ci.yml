@@ -30,7 +30,17 @@ jobs:
 
     - name: Install ChromeDriver
       run: |
-        CHROMEDRIVER_VERSION=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+        # Get the Chrome version
+        CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+')
+        
+        # Get the compatible ChromeDriver version for the installed Chrome
+        CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION}")
+        
+        if [ -z "$CHROMEDRIVER_VERSION" ]; then
+          echo "Error: No matching ChromeDriver version found for Chrome version $CHROME_VERSION"
+          exit 1
+        fi
+        
         wget https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip
         unzip chromedriver_linux64.zip
         sudo mv chromedriver /usr/local/bin/chromedriver
