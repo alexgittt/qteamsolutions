@@ -9,7 +9,8 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - name: Checkout code
+      uses: actions/checkout@v2
 
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -29,16 +30,22 @@ jobs:
 
     - name: Install ChromeDriver
       run: |
-        LATEST_CHROMEDRIVER_VERSION=$(wget -q -O - https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
-        wget https://chromedriver.storage.googleapis.com/${LATEST_CHROMEDRIVER_VERSION}/chromedriver_linux64.zip
+        CHROMEDRIVER_VERSION=$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)
+        wget https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip
         unzip chromedriver_linux64.zip
         sudo mv chromedriver /usr/local/bin/chromedriver
         sudo chmod +x /usr/local/bin/chromedriver
+
+    - name: Verify installations
+      run: |
+        google-chrome --version
+        chromedriver --version
 
     - name: Run Behave UI tests
       run: |
         behave --tags=ui
 
+    # Uncomment to run API tests if needed
     # - name: Run Behave API tests
     #   continue-on-error: true
     #   run: |
