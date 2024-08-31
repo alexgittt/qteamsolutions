@@ -25,19 +25,7 @@ jobs:
       run: |
         behave --tags=ui
 
-    - name: Run Behave API tests
-      continue-on-error: true
-      run: |
-        behave --tags=api
-
-
-
-    # - name: Run Behave tests
+    # - name: Run Behave API tests
+    #   continue-on-error: true
     #   run: |
-    #     behave --junit --junit-directory=reports ./features
-
-    # - name: Test Summary
-    #   uses: dorny/test-summary@v1
-    #   with:
-    #     check_name: 'Test Report'
-    #     report_paths: '**/reports/*.xml'
+    #     behave --tags=api
