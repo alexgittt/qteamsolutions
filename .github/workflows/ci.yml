@@ -9,8 +9,7 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
+    - uses: actions/checkout@v2
 
     - name: Set up Python
       uses: actions/setup-python@v2
@@ -22,41 +21,23 @@ jobs:
         python -m pip install --upgrade pip
         pip install -r requirements.txt
 
-    - name: Install Google Chrome
-      run: |
-        wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-        sudo dpkg -i google-chrome-stable_current_amd64.deb
-        sudo apt-get -f install -y
-
-    - name: Install ChromeDriver
-      run: |
-        # Get the Chrome version
-        CHROME_VERSION=$(google-chrome --version | grep -oP '\d+\.\d+')
-        
-        # Get the compatible ChromeDriver version for the installed Chrome
-        CHROMEDRIVER_VERSION=$(curl -s "https://chromedriver.storage.googleapis.com/LATEST_RELEASE_${CHROME_VERSION}")
-        
-        if [ -z "$CHROMEDRIVER_VERSION" ]; then
-          echo "Error: No matching ChromeDriver version found for Chrome version $CHROME_VERSION"
-          exit 1
-        fi
-        
-        wget https://chromedriver.storage.googleapis.com/${CHROMEDRIVER_VERSION}/chromedriver_linux64.zip
-        unzip chromedriver_linux64.zip
-        sudo mv chromedriver /usr/local/bin/chromedriver
-        sudo chmod +x /usr/local/bin/chromedriver
-
-    - name: Verify installations
-      run: |
-        google-chrome --version
-        chromedriver --version
-
     - name: Run Behave UI tests
       run: |
         behave --tags=ui
 
-    # Uncomment to run API tests if needed
-    # - name: Run Behave API tests
-    #   continue-on-error: true
+    - name: Run Behave API tests
+      continue-on-error: true
+      run: |
+        behave --tags=api
+
+
+
+    # - name: Run Behave tests
     #   run: |
-    #     behave --tags=api
+    #     behave --junit --junit-directory=reports ./features
+
+    # - name: Test Summary
+    #   uses: dorny/test-summary@v1
+    #   with:
+    #     check_name: 'Test Report'
+    #     report_paths: '**/reports/*.xml'
