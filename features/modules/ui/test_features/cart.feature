@@ -1,7 +1,13 @@
-Feature: UI - Main
+Feature: UI - Cart
 
-	@ui @main
-	Scenario: UI: The user can add one product to the cart
+ @ui @cart
+	Scenario: UI: The user can see a message when the cart is empty
+    Given UI - Main: The user is on the home page
+    When UI - Cart: The user goes to the empty cart
+    Then UI - Cart: Empty message is displayed
+
+@ui @cart
+	Scenario: UI: The user can delete product from the cart
     Given UI - Main: The user is on the home page
     When UI - Main: The user goes to the category "Gear" products page
     Then UI - Main: The page "Gear" is opened
@@ -12,9 +18,11 @@ Feature: UI - Main
     When UI - Cart: The user goes to cart
     Then UI - Main: The page "Shopping Cart" is opened
     Then UI - Cart: Check the product "Push It Messenger Bag" is visible on the cart
+    When UI - Cart: The user delete the product from the cart
+    Then UI - Cart: The shopping cart main page is empty
 
-    @ui @main
-	Scenario: UI: The user can add three products to the cart
+@ui @cart
+	Scenario: UI: The user can update the quantity in the cart
     Given UI - Main: The user is on the home page
     When UI - Main: The user goes to the category "Gear" products page
     Then UI - Main: The page "Gear" is opened
@@ -22,25 +30,7 @@ Feature: UI - Main
     Then UI - Main: The page "Bags" is opened
     When UI - Product: The user add the product "Push It Messenger Bag" to the cart
     Then UI - Cart: The cart icon is updated and contains "1" products
-    When UI - Product: The user add the product "Overnight Duffle" to the cart
-    Then UI - Cart: The cart icon is updated and contains "2" products
-    When UI - Product: The user add the product "Driven Backpack" to the cart
-    Then UI - Cart: The cart icon is updated and contains "3" products
     When UI - Cart: The user goes to cart
     Then UI - Main: The page "Shopping Cart" is opened
-    Then UI - Cart: Check the product "Push It Messenger Bag" is visible on the cart
-    Then UI - Cart: Check the product "Overnight Duffle" is visible on the cart
-    Then UI - Cart: Check the product "Driven Backpack" is visible on the cart
-
-   
-
-
-
-
-
-# Add more items to the cart - 
-# Go to minicart when there is no item on it -> check the box message empty - 
-# Add product to the cart, then delete it -> check that the user cannot chekout - 
-# Add product to the cart, then update the quantity - 
-# finalize the order 
-# try to finalize the order without filling one mandatory field
+    When UI - Cart: The user update the quantity of the product to "5"
+    Then UI - Cart: The quantity is "5"
