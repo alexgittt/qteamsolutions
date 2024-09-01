@@ -1,5 +1,5 @@
 from nerodia.browser import Browser
-from config.initialize_driver import *
+from config.initialize_driver import initialize_driver
 import os
 
 def before_all(context):
@@ -10,13 +10,9 @@ def before_all(context):
     context.url = context.config.userdata.get('url_ui')
 
 def before_feature(context, feature):
-
     if "UI" in feature.name:
-        context.driver = initialize_driver(context.config.userdata.get('browser'))
+        context.browser = initialize_driver(context.config.userdata.get('browser'))
         context.execute_steps(u'''given UI: Initialize Pages''')
-
-        return
-
 
 def after_step(context, step):
     if step.status == "failed" and hasattr(context, 'browser'):
@@ -27,17 +23,20 @@ def after_step(context, step):
         # Optionally, attach the screenshot to an Allure report
         # allure.attach.file(screenshot_path, name=step.name, attachment_type=allure.attachment_type.PNG)
 
-# def after_feature(context, feature):
-#     if hasattr(context, 'browser'):
-#         # Close the browser after each feature
-#         context.browser.quit()
+def after_scenario(context, scenario):
+    if hasattr(context, 'browser'):
+        clear_browser_state(context.browser.driver)
 
 def after_feature(context, feature):
-
-    if hasattr(context, 'driver'):
-        context.driver.quit()
-    return context
+    if hasattr(context, 'browser'):
+        context.browser.quit()
+        del context.browser
 
 def after_all(context):
     # Any global cleanup can be done here
     pass
+
+def clear_browser_state(driver):
+    driver.execute_script("window.localStorage.clear();")
+    driver.execute_script("window.sessionStorage.clear();")
+    driver.delete_all_cookies()
