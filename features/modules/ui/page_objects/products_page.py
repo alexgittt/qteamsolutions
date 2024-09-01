@@ -3,6 +3,7 @@ from features.modules.ui.page_objects.base_page import BasePage
 from features.modules.ui.page_objects.browser_content import *
 from features.modules.ui.page_objects.base_page import *
 
+
 class ProductsPage(BasePage):
   def __init__(self, browser, context):
    
@@ -13,7 +14,7 @@ class ProductsPage(BasePage):
     self.product_info              = self.browser.div(class_name="product-info-main")
 
     self.product_list              = self.browser.element(id="maincontent")
-    self.add_to_cart_button        = self.product_list.button(class_name="action tocart primary")
+    self.add_to_cart_button        = self.product_list.button(class_name="action primary tocart")
     self.minicart_btn              = self.browser.div(class_name="minicart-wrapper")
     self.minicart_pop_up           = self.browser.div(class_name="minicart-wrapper active")
     self.view_and_edit_cart_btn    = self.browser.element(({'class':['action', 'viewcart']}))
@@ -25,11 +26,14 @@ class ProductsPage(BasePage):
     super().__init__(self.browser, self.context)
 
 
-  def hover_on_product_and_add_to_cart(self, product):
+  def open_the_product_and_add_to_cart(self, product):
       product = self.product_list.element(xpath=f"//a[@class='product-item-link' and normalize-space(text())='{product}']").wait_until(method=lambda e: e.present, timeout=5)
-      product.hover()
+      product.click()
     
-      self.add_to_cart_button.wait_until(method=lambda e: e.present, timeout=5)
+      self.add_to_cart_button.wait_until(method=lambda e: e.present and e.enabled, timeout=5)
+      
+    #   self.add_to_cart_button.scroll_into_view()
+      time.sleep(3)
       self.add_to_cart_button.click()
 
   def check_minicart_product_count(self, expected_count):
@@ -48,6 +52,6 @@ class ProductsPage(BasePage):
           raise
     
   def open_minicart(self):
-      self.minicart_btn.click()
+    self.minicart_btn.click()
 
   

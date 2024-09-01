@@ -8,6 +8,9 @@ class BasePage(BrowserContent):
     def go_to_url(self, url):
         self.browser.goto(url)
 
+    def go_back(self):
+        self.browser.back()
+
     def click_on_element(self, element_el):
         element_el.wait_until(method=lambda el: el.present, timeout=10)
         element_el.click()

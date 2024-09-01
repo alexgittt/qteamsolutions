@@ -4,8 +4,8 @@ from selenium.webdriver.common.keys import Keys
 
 @when('UI - Product: The user add the product "{product}" to the cart')
 def step_impl(context, product):
-	context.products_page.hover_on_product_and_add_to_cart(product)
-
+	context.products_page.open_the_product_and_add_to_cart(product)
+	context.base_page.go_back()
 
 @then('UI - Product: The cart icon is updated and contains "{count_products}" products')
 def step_impl(context, count_products):

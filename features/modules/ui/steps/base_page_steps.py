@@ -10,7 +10,7 @@ from features.modules.ui.page_objects.products_page import *
 def step_impl(context):
 
 	# ALL page objects initialization
-	context.base_page 		= BasePage(context.driver, context)
-	context.main_page 		= MainPage(context.driver, context)
-	context.cart_page 		= CartPage(context.driver, context)
-	context.products_page	= ProductsPage(context.driver, context)
+	context.base_page 		= BasePage(context.browser, context)
+	context.main_page 		= MainPage(context.browser, context)
+	context.cart_page 		= CartPage(context.browser, context)
+	context.products_page	= ProductsPage(context.browser, context)
