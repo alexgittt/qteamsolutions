@@ -14,3 +14,5 @@ def step_impl(context):
 	context.main_page 		= MainPage(context.browser, context)
 	context.cart_page 		= CartPage(context.browser, context)
 	context.products_page	= ProductsPage(context.browser, context)
+
+	context.base_page.window_maximize()

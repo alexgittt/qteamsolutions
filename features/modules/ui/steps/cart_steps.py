@@ -42,3 +42,7 @@ def step_impl(context, quantity):
 @then('UI - Cart: The quantity is {quantity}')
 def step_impl(context, quantity):
 	context.cart_page.check_quantity_value(quantity)
+
+@when('UI - Cart: The user proceed to checkout')
+def step_impl(context):
+	context.cart_page.checkout_btn.click()
