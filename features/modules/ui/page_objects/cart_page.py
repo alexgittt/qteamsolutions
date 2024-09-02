@@ -13,6 +13,8 @@ class CartPage(BasePage):
     self.empty_shopping_cart_page     = self.browser.div(class_name="cart-empty")
     self.quantity                     = self.browser.element(class_name="input-text qty")
     self.update_cart_btn              = self.browser.element(tag_name="button", class_name="action update")
+    self.checkout_btn                 = self.browser.element(data_role="proceed-to-checkout")
+    
 
 
     super().__init__(self.browser, self.context)

@@ -1,6 +1,6 @@
 import time
 from behave import *
-from features.modules.ui.credentials import users
+
 
 
 
@@ -21,3 +21,22 @@ def step_impl(context, sub_category):
 def step_impl(context, page):
 	context.base_page.verify_that_page_product_is_displayed(page)
 
+@then('UI - Main: The shipping address page is displayed')
+def step_impl(context):
+	context.main_page.shipping_address_page.wait_until(method=lambda e: e.present, timeout=10)
+
+@when('UI - Main: The user fill the shipping address with the address "{buyer}"')
+def step_impl(context, buyer):
+	context.main_page.fill_the_shipping_address(buyer)
+
+@then('UI - Main: The payment screen is displayed')
+def step_impl(context):
+	context.main_page.payment_field.wait_until(method=lambda e: e.present, timeout=10)
+
+@when('UI - Main: The user place order')
+def step_impl(context):
+	context.main_page.place_order()
+
+@then('UI - Main: The order is successfully placed')
+def step_impl(context):
+	context.main_page.order_successful.wait_until(method=lambda e: e.present, timeout=10)
