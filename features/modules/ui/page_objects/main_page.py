@@ -31,6 +31,7 @@ class MainPage(BasePage):
     self.place_order_btn              = self.browser.element(tag_name="button", text="Place Order")
     
     self.order_successful             = self.browser.element(class_name="base", text="Thank you for your purchase!")
+    self.field_error_message          = self.browser.div(class_name="field-error", text="This is a required field.")
 
 
     super().__init__(self.browser, self.context)
@@ -50,7 +51,7 @@ class MainPage(BasePage):
       self.phone_number.send_keys(buyer_details['phone_number'])
       time.sleep(3)
       self.continue_btn.click()
-      
+  
   def select_state(self, state_name):
         try:
             self.state.click()
