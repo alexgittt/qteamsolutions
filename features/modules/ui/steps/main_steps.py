@@ -40,3 +40,7 @@ def step_impl(context):
 @then('UI - Main: The order is successfully placed')
 def step_impl(context):
 	context.main_page.order_successful.wait_until(method=lambda e: e.present, timeout=10)
+
+@then('UI - Main: Field error message is displayed')
+def step_impl(context):
+	context.main_page.field_error_message.wait_until(method=lambda e: e.present, timeout=10)

@@ -32,7 +32,7 @@ class ProductsPage(BasePage):
     
       self.add_to_cart_button.wait_until(method=lambda e: e.present and e.enabled, timeout=5)
       self.add_to_cart_button.click()
-      time.sleep(2)
+      time.sleep(3)
 
   def check_minicart_product_count(self, expected_count):
       try:
