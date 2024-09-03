@@ -31,15 +31,13 @@ class ProductsPage(BasePage):
       product.click()
     
       self.add_to_cart_button.wait_until(method=lambda e: e.present and e.enabled, timeout=5)
-      
-    #   self.add_to_cart_button.scroll_into_view()
-      time.sleep(3)
       self.add_to_cart_button.click()
+      time.sleep(2)
 
   def check_minicart_product_count(self, expected_count):
       try:
           minicart_counter = self.browser.element(xpath="//div[@data-block='minicart']//span[@class='counter-number']")
-          minicart_counter.wait_until(method=lambda e: e.present and e.text.strip() != "", timeout=10)
+          minicart_counter.wait_until(method=lambda e: e.present and e.text.strip() != "", timeout=15)
           actual_count = minicart_counter.text.strip()
           expected_count = str(expected_count)
 
