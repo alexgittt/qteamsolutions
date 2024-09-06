@@ -1,4 +1,4 @@
-# yassir_demo
+# qteamsolutions_demo
 
 # 1. Install and run tests on a local machine
 # 2. View the allure report
